@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .quiz {
+            width: 40%;
+            margin-left: 100px;
+            margin-top: 100px;
+            /* background-color: #eee; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            user-select: none;
+        }
+
+        .questions {
+            padding: 20px;
+            border-bottom: 2px solid rgb(160, 84, 231);
+            margin-bottom: 30px;
+        }
+
+        .question {
+            color: #222;
+            text-align: center;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            row-gap: 13px;
+            column-gap: 5px;
+        }
+
+        .answer {}
+
+        .each_answer {
+            min-height: 40px;
+            margin-left: 10px;
+            padding: 5px;
+            background-color: rgb(208, 171, 243);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            border-radius: 0.7rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            color: #222;
+            -webkit-transition: 0.2s;
+            transition: 0.2s;
+        }
+
+        .each_answer:hover {
+            background-color: rgb(165, 132, 196);
+        }
+
+        .each_answer,
+        .each_answer * {
+            cursor: pointer;
+        }
+
+        .checked {
+            background-color: rgb(55, 212, 103);
+        }
+
+        .checked:hover {
+            background-color: rgb(88, 185, 117);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz"></div>
+
+    <script>
+        const alphabet_en = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        const questions = [
+            {
+                question: 'What is your favorite activity to do on a Friday night?',
+                answers: [
+                    {
+                        answer: 'Going out to a fancy restaurant and trying new foods',
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: 'Going out to a club and dancing the night away',
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: 'Staying in and relaxing with a good book',
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: 'Attending a cultural event or art show',
+                        value: 'Charlotte',
+                    },
+                ],
+            },
+            {
+                question: 'How do you handle a difficult or stressful situation?',
+                answers: [
+                    {
+                        answer: 'By writing about it and finding ways to process my emotions',
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: 'By taking charge and finding a solution',
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: 'By trying to relax and let go of the stress',
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: 'By seeking out new experiences and distractions',
+                        value: 'Samantha',
+                    },
+                ],
+            },
+            {
+                question: 'How do you feel about casual relationships?',
+                answers: [
+                    {
+                        answer: 'I prefer more committed and meaningful connections',
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: "I'm open to exploring different types of relationships",
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: "I'm not interested in casual relationships",
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: 'I enjoy the freedom and independence of casual relationships',
+                        value: 'Samantha',
+                    },
+                ],
+            },
+            {
+                question: 'How do you express your creativity?',
+                answers: [
+                    {
+                        answer: 'Through my writing and storytelling',
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: 'Through my fashion choices and personal style',
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: 'Through my work as an art dealer',
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: 'By finding new and innovative ways to solve problems',
+                        value: 'Miranda',
+                    },
+                ],
+            },
+            {
+                question: 'How do you feel about commitment and marriage?',
+                answers: [
+                    {
+                        answer: "I'm open to the possibility but I also value my independence",
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: "I'm not interested in marriage, but I do value committed relationships",
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: 'I believe in the traditional values of marriage and commitment',
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: 'I believe in the importance of personal growth and independence in a relationship',
+                        value: 'Miranda',
+                    },
+                ],
+            },
+            {
+                question: 'How do you handle conflicts with friends?',
+                answers: [
+                    {
+                        answer: 'By discussing and resolving the issue directly',
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: 'By trying to find a compromise and understanding',
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: 'By writing about it and finding ways to process my emotions',
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: 'By avoiding the conflict and seeking out new friends',
+                        value: 'Samantha',
+                    },
+                ],
+            },
+            {
+                question: 'How do you feel about your career?',
+                answers: [
+                    {
+                        answer: "It's important to me and I work hard to succeed",
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: "It's a means to an end and I prioritize my personal life",
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: "It's a passion and I'm always seeking new opportunities",
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: "It's important to me but I also value having a balanced life",
+                        value: 'Charlotte',
+                    },
+                ],
+            },
+            {
+                question: 'How do you feel about your appearance?',
+                answers: [
+                    {
+                        answer: 'I put a lot of effort into my appearance and love to express myself through fashion',
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: 'I care about my appearance but also prioritize my inner beauty and personal growth',
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: "I'm confident in my appearance and embrace my natural beauty",
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: 'I enjoy experimenting with different styles and fashion trends',
+                        value: 'Carrie',
+                    },
+                ],
+            },
+            {
+                question: 'How do you handle romantic relationships?',
+                answers: [
+                    {
+                        answer: "I'm open to exploring different types of relationships and take things as they come",
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: "I'm not interested in serious relationships and prefer to keep things casual",
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: "I'm traditional and believe in the importance of commitment and monogamy",
+                        value: 'Charlotte',
+                    },
+                    {
+                        answer: "I'm practical and focus on communication and compromise in my relationships",
+                        value: 'Miranda',
+                    },
+                ],
+            },
+            {
+                question: 'How do you feel about your friends?',
+                answers: [
+                    {
+                        answer: 'They are my chosen family and I value their support and loyalty',
+                        value: 'Carrie',
+                    },
+                    {
+                        answer: "They are an important part of my life and I'm fiercely loyal to them",
+                        value: 'Samantha',
+                    },
+                    {
+                        answer: 'They are important to me but I also value my independence and alone time',
+                        value: 'Miranda',
+                    },
+                    {
+                        answer: 'They are a source of joy and support and I value the relationships I have with them',
+                        value: 'Charlotte',
+                    },
+                ],
+            },
+        ];
+
+        const _quiz = document.querySelector('.quiz');
+
+        const QuestionBuilder = (q, i) => {
+            const { question, answers } = q;
+
+            const h3 = document.createElement("h3");
+
+            const _questions = document.createElement('div');
+            const _question = document.createElement('div');
+            const _answers = document.createElement('div');
+
+            _questions.setAttribute('class', 'questions');
+            _question.setAttribute('class', 'question');
+            _answers.setAttribute('class', 'answers');
+
+            h3.innerHTML = question;
+
+            const AnswerBuilder = (a, j) => {
+                const _answer = document.createElement('div');
+
+                const label = document.createElement('label');
+                const inputRadio = document.createElement('input');
+
+                inputRadio.setAttribute("type", "radio");
+                _answer.setAttribute('class', 'answer');
+                _answer.setAttribute('onclick', `checkValue()`);
+
+                label.setAttribute("class", "each_answer");
+                label.setAttribute("for", `q_${i}_${j}`)
+                label.innerHTML = a.answer;
+                inputRadio.setAttribute("name", `q_${i}`);
+                inputRadio.setAttribute("id", `q_${i}_${j}`);
+                inputRadio.setAttribute("value", a.value);
+                inputRadio.hidden = true;
+
+                _answer.appendChild(label);
+                _answer.appendChild(inputRadio);
+
+                return _answer;
+            }
+
+            answers.map((a, j) => _answers.appendChild(AnswerBuilder(a, j + 1)));
+
+            _questions.appendChild(_question);
+            _question.appendChild(h3);
+            _questions.appendChild(_answers);
+
+            return _questions;
+        };
+
+        questions.map((q, i) => {
+            _quiz.appendChild(QuestionBuilder(q, i + 1));
+        });
+
+        const answer = document.querySelectorAll(".answer");
+
+
+        function checkValue() {
+            answer.forEach(a => {
+                if (a.children.item(1).checked === true) a.children.item(0).classList.add("checked");
+                else a.children.item(0).classList.remove("checked");
+            })
+        }
+    </script>
+</body>
+
+</html>
