@@ -390,7 +390,7 @@
                 else a.children.item(0).classList.remove("checked");
             })
             checkList = checkedValues;
-            if (checkList.length === 5 && !document.querySelector(".submit-btn")) {
+            if (checkList.length === questions.length && !document.querySelector(".submit-btn")) {
                 const submit = document.createElement("button");
                 submit.setAttribute("class", "submit-btn");
                 submit.setAttribute("onclick", "finishQuizz()");
