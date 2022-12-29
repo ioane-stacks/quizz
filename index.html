@@ -306,12 +306,28 @@
             },
         ];
 
-        const individualAnswer = {
-            carrie: 'You are Carrie Bradshaw from "Sex and the City." As a successful writer and journalist, you have a sharp wit and keen insights on modern femininity and relationships. You are independent, ambitious, and determined, with a deep love for your friends and a fierce sense of self. You are known for your fashionable and stylish sense of dress, often seen sporting high heels and designer clothing. Despite your tough exterior, you have a soft heart and can be vulnerable in your relationships with men. Throughout the series, you face a range of challenges and setbacks, but ultimately learn to embrace your true self and find happiness on your own terms. Whether you\'re navigating the ups and downs of single life or falling in love, you are always true to yourself and your passions.',
-            samantha: 'You are Samantha Jones from "Sex and the City." As a successful public relations executive, you are confident, bold, and unapologetic, with a no-nonsense attitude and a strong belief in the power of independence. You are known for your promiscuity and love of casual relationships, but you are also fiercely loyal to your friends and are always there for them when they need support. You are known for your bold fashion sense, often sporting revealing and sexy outfits. Throughout the series, you face a range of personal and professional challenges, but always manage to come out on top with your strong sense of self and determination. Whether you\'re climbing the corporate ladder or enjoying the single life, you are always true to yourself and your passions.',
-            miranda: 'You are Miranda Hobbes from "Sex and the City." As a successful lawyer, you are practical, no-nonsense, and driven, with a strong work ethic and a dedication to your career. Despite your tough exterior, you are also fiercely loyal and caring towards your friends, and are always there for them when they need support. You are known for your more subdued fashion sense, often opting for more classic and professional looks. Throughout the series, you face a range of personal and professional challenges, including the ups and downs of single motherhood, but ultimately learn to balance your career and personal life with grace and determination. Whether you\'re tackling tough cases or managing the demands of motherhood, you are always true to yourself and your passions.',
-            charlotte: 'You are Charlotte York from "Sex and the City." As a successful art dealer, you are traditional, romantic, and sophisticated, with a strong belief in true love and happily ever after. You are known for your refined taste and ladylike demeanor, but you also have a vulnerable side and often struggle with insecurities and self-doubt in your relationships. You are known for your classic and feminine fashion sense, often seen wearing dresses and roots. Throughout the series, you face a range of challenges in your search for love and marriage, but ultimately find happiness with your husband, Harry, and your daughter, Lily. Whether you\'re navigating the dating scene or building a life with your family, you are always true to yourself and your passions.'
-        }
+        const individualAnswer = [
+            {
+                index: 0,
+                person: "Carrie",
+                answer: 'You are Carrie Bradshaw from "Sex and the City." As a successful writer and journalist, you have a sharp wit and keen insights on modern femininity and relationships. You are independent, ambitious, and determined, with a deep love for your friends and a fierce sense of self. You are known for your fashionable and stylish sense of dress, often seen sporting high heels and designer clothing. Despite your tough exterior, you have a soft heart and can be vulnerable in your relationships with men. Throughout the series, you face a range of challenges and setbacks, but ultimately learn to embrace your true self and find happiness on your own terms. Whether you\'re navigating the ups and downs of single life or falling in love, you are always true to yourself and your passions.',
+            },
+            {
+                index: 1,
+                person: "Samantha",
+                answer: 'You are Samantha Jones from "Sex and the City." As a successful public relations executive, you are confident, bold, and unapologetic, with a no-nonsense attitude and a strong belief in the power of independence. You are known for your promiscuity and love of casual relationships, but you are also fiercely loyal to your friends and are always there for them when they need support. You are known for your bold fashion sense, often sporting revealing and sexy outfits. Throughout the series, you face a range of personal and professional challenges, but always manage to come out on top with your strong sense of self and determination. Whether you\'re climbing the corporate ladder or enjoying the single life, you are always true to yourself and your passions.',
+            },
+            {
+                index: 2,
+                person: "Miranda",
+                answer: 'You are Miranda Hobbes from "Sex and the City." As a successful lawyer, you are practical, no-nonsense, and driven, with a strong work ethic and a dedication to your career. Despite your tough exterior, you are also fiercely loyal and caring towards your friends, and are always there for them when they need support. You are known for your more subdued fashion sense, often opting for more classic and professional looks. Throughout the series, you face a range of personal and professional challenges, including the ups and downs of single motherhood, but ultimately learn to balance your career and personal life with grace and determination. Whether you\'re tackling tough cases or managing the demands of motherhood, you are always true to yourself and your passions.',
+            },
+            {
+                index: 3,
+                person: "Charlotte",
+                answer: 'You are Charlotte York from "Sex and the City." As a successful art dealer, you are traditional, romantic, and sophisticated, with a strong belief in true love and happily ever after. You are known for your refined taste and ladylike demeanor, but you also have a vulnerable side and often struggle with insecurities and self-doubt in your relationships. You are known for your classic and feminine fashion sense, often seen wearing dresses and roots. Throughout the series, you face a range of challenges in your search for love and marriage, but ultimately find happiness with your husband, Harry, and your daughter, Lily. Whether you\'re navigating the dating scene or building a life with your family, you are always true to yourself and your passions.',
+            },
+        ]
 
         const cocktail = {
             a: 'You are a combination of all the main characters from "Sex and the City." Like Carrie, you are a successful writer and journalist with a sharp wit and keen insights on modern femininity and relationships. You are independent, ambitious, and determined, with a deep love for your friends and a fierce sense of self. You are known for your fashionable and stylish sense of dress, often seen sporting high heels and designer clothing. Despite your tough exterior, you have a soft heart and can be vulnerable in your relationships with men.',
@@ -400,39 +416,36 @@
         }
 
         function finishQuizz() {
-            console.log(checkList.includes().length);
-            const CarrieCount = checkList.filter(x => x === "Carrie").length + individualAnswer.carrie;
-            const SamanthaCount = checkList.filter(x => x === "Samantha").length + individualAnswer.samantha;
-            const MirandaCount = checkList.filter(x => x === "Miranda").length + individualAnswer.miranda;
-            const CharlotteCount = checkList.filter(x => x === "Charlotte").length + individualAnswer.charlotte;
+            const CarrieCount = [checkList.filter(x => x === "Carrie").length, "Carrie"];
+            const SamanthaCount = [checkList.filter(x => x === "Samantha").length, "Samantha"];
+            const MirandaCount = [checkList.filter(x => x === "Miranda").length, "Miranda"];
+            const CharlotteCount = [checkList.filter(x => x === "Charlotte").length, "Charlotte"];
+
+            const persons = [CarrieCount, SamanthaCount, MirandaCount, CharlotteCount];
+
+            const FiveToFive = persons.filter(x => x[0] === 5);
+            const FourToFour = persons.filter(x => x[0] === 4);
 
             const h3 = document.createElement("h3");
             h3.setAttribute("class", "question");
 
             _quiz.innerHTML = "";
 
-            console.log(CarrieCount[0], SamanthaCount[0], MirandaCount[0], CharlotteCount[0]);
-
-            if (CharlotteCount[0] === '5' && CarrieCount[0] === '5') {
-                result = cocktail.a;
+            if (FiveToFive.length === 2) {
+                const name = FiveToFive[Math.floor(Math.random() * 2)][1];
+                result = individualAnswer.find(a => a.person === name).answer;
                 h3.innerHTML = result;
-            } else if (CarrieCount[0] === '5' && SamanthaCount[0] === '5') {
-                result = cocktail.b;
-                h3.innerHTML = result;
-            } else if (SamanthaCount[0] === '5' && MirandaCount[0] === '5') {
-                result = cocktail.c;
-                h3.innerHTML = result;
-            } else if (MirandaCount[0] === '5' && CharlotteCount[0] === '5') {
-                result = cocktail.d;
+            } else if (FourToFour.length === 2) {
+                const name = FourToFour[Math.floor(Math.random() * 2)][1];
+                result = individualAnswer.find(a => a.person === name).answer;
                 h3.innerHTML = result;
             }
             else {
-                const persons = [CarrieCount, SamanthaCount, MirandaCount, CharlotteCount];
-                const person = persons.sort((a, b) => '' + b.localeCompare(a))[0];
-                result = person.slice(1, person.length);
+                const person = persons.sort((a, b) => '' + b.toString().localeCompare(a.toString()))[0];
+                console.log(person);
+                result = individualAnswer.find(a => a.person === person[1]).answer;
                 h3.innerHTML = result;
             }
-
 
             _quiz.appendChild(h3);
         }
