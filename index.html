@@ -329,13 +329,27 @@
             },
         ]
 
-        const cocktail = {
-            a: 'You are a combination of all the main characters from "Sex and the City." Like Carrie, you are a successful writer and journalist with a sharp wit and keen insights on modern femininity and relationships. You are independent, ambitious, and determined, with a deep love for your friends and a fierce sense of self. You are known for your fashionable and stylish sense of dress, often seen sporting high heels and designer clothing. Despite your tough exterior, you have a soft heart and can be vulnerable in your relationships with men.',
-            b: 'Like Samantha, you are confident, bold, and unapologetic, with a no-nonsense attitude and a strong belief in the power of independence. You are successful in your career and enjoy the freedom and independence of casual relationships. You are known for your bold fashion sense, often sporting revealing and sexy outfits.',
-            c: 'Like Miranda, you are practical, no-nonsense, and driven, with a strong work ethic and a dedication to your career. Despite your tough exterior, you are also fiercely loyal and caring towards your friends, and are always there for them when they need support. You are known for your more subdued fashion sense, often opting for more classic and professional looks.',
-            d: 'Like Charlotte, you are traditional, romantic, and sophisticated, with a strong belief in true love and happily ever after. You are known for your refined taste and ladylike demeanor, but you also have a vulnerable side and often struggle with insecurities and self-doubt in your relationships. You are known for your classic and feminine fashion sense, often seen wearing dresses and roots.',
-            e: 'Throughout the series, you face a range of personal and professional challenges, but ultimately learn to embrace your true self and find happiness on your own terms. Whether you\'re navigating the ups and downs of single life, climbing the corporate ladder, or building a life with your family, you are always true to yourself and your passions.'
-        }
+        const cocktail = [
+            {
+                answer: 'You are a combination of all the main characters from "Sex and the City." Like Carrie, you are a successful writer and journalist with a sharp wit and keen insights on modern femininity and relationships. You are independent, ambitious, and determined, with a deep love for your friends and a fierce sense of self. You are known for your fashionable and stylish sense of dress, often seen sporting high heels and designer clothing. Despite your tough exterior, you have a soft heart and can be vulnerable in your relationships with men.',
+                person: "Carrie"
+            },
+            {
+                answer: 'Like Samantha, you are confident, bold, and unapologetic, with a no-nonsense attitude and a strong belief in the power of independence. You are successful in your career and enjoy the freedom and independence of casual relationships. You are known for your bold fashion sense, often sporting revealing and sexy outfits.',
+                person: "Samantha"
+            },
+            {
+                answer: 'Like Miranda, you are practical, no-nonsense, and driven, with a strong work ethic and a dedication to your career. Despite your tough exterior, you are also fiercely loyal and caring towards your friends, and are always there for them when they need support. You are known for your more subdued fashion sense, often opting for more classic and professional looks.',
+                person: "Miranda"
+            },
+            {
+                answer: 'Like Charlotte, you are traditional, romantic, and sophisticated, with a strong belief in true love and happily ever after. You are known for your refined taste and ladylike demeanor, but you also have a vulnerable side and often struggle with insecurities and self-doubt in your relationships. You are known for your classic and feminine fashion sense, often seen wearing dresses and roots.',
+                person: "Charlotte"
+            },
+            {
+                forall: 'Throughout the series, you face a range of personal and professional challenges, but ultimately learn to embrace your true self and find happiness on your own terms. Whether you\'re navigating the ups and downs of single life, climbing the corporate ladder, or building a life with your family, you are always true to yourself and your passions.'
+            }
+        ]
 
         const _quiz = document.querySelector('.quiz');
 
@@ -425,6 +439,7 @@
 
             const FiveToFive = persons.filter(x => x[0] === 5);
             const FourToFour = persons.filter(x => x[0] === 4);
+            const ThreeOfTen = persons.filter(x => x[0] === 3);
 
             const h3 = document.createElement("h3");
             h3.setAttribute("class", "question");
@@ -439,6 +454,12 @@
                 const name = FourToFour[Math.floor(Math.random() * 2)][1];
                 result = individualAnswer.find(a => a.person === name).answer;
                 h3.innerHTML = result;
+            }
+            else if (ThreeOfTen.length === 3) {
+                const names = ThreeOfTen.map(x => x[1]);
+                result = [...cocktail.filter(x => names.includes(x.person)).map(x => x.answer), cocktail[cocktail.length - 1].forall].map(x => `<p>${x}</p>`).join(" ");
+                h3.insertAdjacentHTML("afterbegin", result);
+                console.log(result);
             }
             else {
                 const person = persons.sort((a, b) => '' + b.toString().localeCompare(a.toString()))[0];
